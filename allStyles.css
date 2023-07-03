@@ -1,0 +1,53 @@
+*{
+    background-color: black;
+}
+
+.container{
+    width: 40%;
+    margin: auto;
+    
+}
+
+.nav{
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    
+}
+
+.view{
+    color: aqua;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.view:hover{
+    color: #FC8C50;
+}
+
+.tableDiv{
+    margin-top: 40px;
+}
+
+table {
+    margin: auto;
+    border-collapse: collapse;
+    color: #F4F4F4;
+  }
+
+  th, td {
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    border: 2px solid #F4F4F4;
+  }

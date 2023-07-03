@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Active Deadlines</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="nav">
+        <a href="https://www.gradright.com/"><img src="https://www.gradright.com/wp-content/themes/gradright/img/logo.svg" class="img-fluid"></a>
+        <a class="view" href="all.html">View all</a>
+    </div>
+  
+  <h1>Active Deadlines</h1>
+
+  <div class="activeDeadline">
+    <label for="deadline" class="activeText">Enter Deadline:</label>
+    <input type="date" id="deadline" name="deadline" class="date">
+    <button id="submitBtn" class="button1">Submit</button>
+  </div>
+
+
+<div class="tableDiv">
+</div>
+
+
+  <script>
+    const submitBtn = document.getElementById('submitBtn');
+    const deadlineInput = document.getElementById('deadline');
+    const tableDiv = document.querySelector('.tableDiv');
+
+    submitBtn.addEventListener('click', () => {
+      const enteredDate = deadlineInput.value;
+      fetch(`http://localhost:4500/entries/deadline/${enteredDate}`)
+        .then(response => response.json())
+        .then(entries => {
+          tableDiv.innerHTML = ''; // Clear existing table content
+
+          if (entries.length === 0) {
+            const message = document.createElement('p');
+            message.textContent = 'No entries found with a deadline smaller than the provided date';
+            tableDiv.appendChild(message);
+          } else {
+            const table = document.createElement('table');
+            table.id = 'entriesTable';
+
+            // Create table header row
+            const headerRow = table.insertRow();
+            const universityHeader = headerRow.insertCell();
+            universityHeader.textContent = 'University Name';
+            universityHeader.classList.add('header-cell');
+            const courseHeader = headerRow.insertCell();
+            courseHeader.textContent = 'Course Name';
+            courseHeader.classList.add('header-cell');
+            const deadlineHeader = headerRow.insertCell();
+            deadlineHeader.textContent = 'Deadline';
+            deadlineHeader.classList.add('header-cell');
+
+            entries.forEach(entry => {
+              const row = table.insertRow();
+              row.insertCell().textContent = entry.universityName;
+              row.insertCell().textContent = entry.courseName;
+              row.insertCell().textContent = entry.deadline;
+            });
+
+            tableDiv.appendChild(table);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  </script>
+</div>
+</body>
+</html>

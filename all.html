@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Entries</title>
+  
+  <link rel="stylesheet" href="allStyles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="nav">
+            <a href="https://www.gradright.com/"><img src="https://www.gradright.com/wp-content/themes/gradright/img/logo.svg" class="img-fluid"></a>
+            <a class="view" href="index.html">Search by deadline</a>
+        </div>    
+    
+    <div class="tableDiv">
+        <table id="entriesTable">
+            <tr>
+              <th>University Name</th>
+              <th>Course Name</th>
+              <th>Deadline</th>
+            </tr>
+          </table>
+    </div>
+    </div>
+
+
+  
+
+  <script>
+    // Fetch entries from the API and display them in the table
+    fetch('http://localhost:4500/entries')
+      .then(response => response.json())
+      .then(entries => {
+        const entriesTable = document.getElementById('entriesTable');
+        entries.forEach(entry => {
+          const row = entriesTable.insertRow();
+          row.insertCell().textContent = entry.universityName;
+          row.insertCell().textContent = entry.courseName;
+          row.insertCell().textContent = entry.deadline;
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
