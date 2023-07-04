@@ -1,49 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Entries</title>
-  
+  <title>Search Universities</title>
   <link rel="stylesheet" href="allStyles.css">
 </head>
 
 <body>
-
     <div class="container">
         <div class="nav">
             <a href="https://www.gradright.com/"><img src="https://www.gradright.com/wp-content/themes/gradright/img/logo.svg" class="img-fluid"></a>
             <a class="view" href="index.html">Search by deadline</a>
         </div>    
     
-    <div class="tableDiv">
-        <table id="entriesTable">
-            <tr>
-              <th>University Name</th>
-              <th>Course Name</th>
-              <th>Deadline</th>
-            </tr>
-          </table>
+        <div class="searchDiv">
+            <input class="search" type="text" id="searchInput" placeholder="Search by university name or course name">
+            <button class="sbtn" onclick="searchEntries()">Search</button>
+        </div>
+    
+        <div class="tableDiv">
+            <table id="entriesTable">
+                <tr>
+                    <th>University Name</th>
+                    <th>Course Name</th>
+                    <th>Deadline</th>
+                </tr>
+            </table>
+        </div>
     </div>
-    </div>
 
+    <script>
+        // Function to filter entries based on search input
+        function searchEntries() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const entriesTable = document.getElementById('entriesTable');
+            const rows = entriesTable.getElementsByTagName('tr');
 
-  
+            for (let i = 1; i < rows.length; i++) {
+                const universityName = rows[i].cells[0].textContent.toLowerCase();
+                const courseName = rows[i].cells[1].textContent.toLowerCase();
 
-  <script>
-    // Fetch entries from the API and display them in the table
-    fetch('http://localhost:4500/entries')
-      .then(response => response.json())
-      .then(entries => {
-        const entriesTable = document.getElementById('entriesTable');
-        entries.forEach(entry => {
-          const row = entriesTable.insertRow();
-          row.insertCell().textContent = entry.universityName;
-          row.insertCell().textContent = entry.courseName;
-          row.insertCell().textContent = entry.deadline;
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  </script>
+                if (universityName.includes(searchInput) || courseName.includes(searchInput)) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        // Fetch entries from the API and display them in the table
+        fetch('http://localhost:4500/entries')
+            .then(response => response.json())
+            .then(entries => {
+                const entriesTable = document.getElementById('entriesTable');
+                entries.forEach(entry => {
+                    const row = entriesTable.insertRow();
+                    row.insertCell().textContent = entry.universityName;
+                    row.insertCell().textContent = entry.courseName;
+                    row.insertCell().textContent = entry.deadline;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
 </body>
 </html>

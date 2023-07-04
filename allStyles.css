@@ -32,8 +32,39 @@
     color: #FC8C50;
 }
 
+.searchDiv{
+    margin-top: 35px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search{
+    background-color: #282828;
+    width: 55%;
+    border-radius: 30px;
+    padding: 9px;
+    color: white;; 
+    border-color: white
+}
+
+.sbtn{
+    border: 1px solid white;
+    margin-left: 1rem;
+    width: 15%;
+    padding: 8px;
+    background-color: #282828;;
+    color: white;
+    border-radius: 15px;
+}
+
+.sbtn:hover{
+    background-color: #6FCCFE;
+    cursor: pointer;
+    color: black;
+}
+
 .tableDiv{
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 table {
